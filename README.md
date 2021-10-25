@@ -25,7 +25,10 @@ A.I.VOICE を ゆかりねっと で制御するためのプラグインです�
 
 # Author
 * [おかゆう](http://www.okayulu.moe/)氏作のVOICEROID EX/EX+制御プラグインを改造しています。
-
+* [おかゆう](http://www.okayulu.moe/)氏作のVOICEROID EX/EX+制御プラグインを改造しています。
+* NuGetパッケージの Friendly.2.6.1を使用しています。
+* NuGetパッケージの ILMerge.3.0.41を使用しています。
+* NuGetパッケージの MSBuild.ILMerge.Task.1.1.3を使用しています。
+* 
 # License
- 
 "yukarinette-aivoice" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
