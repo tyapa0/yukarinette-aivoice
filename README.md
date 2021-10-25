@@ -4,7 +4,9 @@ A.I.VOICE を ゆかりねっと で制御するためのプラグインです。
 # Features
 * Voiceroid2よりもちょっとだけ応答が早いです。
 * OBS用のテキストファイル出力に対応しています。  
-![yukarisettei.png.](/image/yukarisettei.png "settei")
+![yukarisettei.png.](/image/yukarisettei.png "settei")  
+* 画面に小さいウインドウが出るのは仕様です。（閉じないでください）
+![ctrlwin.png.](/image/ctrlwin.png "ctrlwin")  
 
 # Installation
 1. [Releaseページ](https://github.com/tyapa0/yukarinette-aivoice/releases/) から最新バージョンの `AivoiceControl_vX.X.zip` をダウンロードします
@@ -22,7 +24,7 @@ A.I.VOICE を ゆかりねっと で制御するためのプラグインです。
 以上
 
 # Author
-* [おかゆう](http://www.okayulu.moe/)作のVOICEROID EX/EX+制御プラグインを改造しています。
+* [おかゆう](http://www.okayulu.moe/)氏作のVOICEROID EX/EX+制御プラグインを改造しています。
 
 # License
  
