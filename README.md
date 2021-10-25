@@ -1,17 +1,29 @@
-# ã‚†ã‹ã‚Šã­ã£ã¨ A.I.VOICE é€£æºãƒ—ãƒ©ã‚°ã‚¤ãƒ³
-A.I.VOICE ã‚’ ã‚†ã‹ã‚Šã­ã£ã¨ ã§åˆ¶å¾¡ã™ã‚‹ãŸã‚ã®ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã§ã™ã€‚
+# ‚ä‚©‚è‚Ë‚Á‚Æ A.I.VOICE ˜AŒgƒvƒ‰ƒOƒCƒ“
+A.I.VOICE ‚ð ‚ä‚©‚è‚Ë‚Á‚Æ ‚Å§Œä‚·‚é‚½‚ß‚Ìƒvƒ‰ƒOƒCƒ“‚Å‚·B
 
-## ä½¿ã„æ–¹
+# Features
+* Voiceroid2‚æ‚è‚à‚¿‚å‚Á‚Æ‚¾‚¯‰ž“š‚ª‘‚¢‚Å‚·B
+* OBS—p‚ÌƒeƒLƒXƒgƒtƒ@ƒCƒ‹o—Í‚É‘Î‰ž‚µ‚Ä‚¢‚Ü‚·B  
+![yukarisettei.jpg.](/image/yukarisettei.jpg "settei")
 
-1. [Releaseãƒšãƒ¼ã‚¸](https://github.com/tyapa0/yukarinette-aivoice/releases/) ã‹ã‚‰æœ€æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã® `AivoiceControl_vX.X.zip` ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¾ã™
-2. ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ãŸ zip ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’é–‹ã„ã¦ã€ãƒ–ãƒ­ãƒƒã‚¯ã•ã‚Œã¦ã„ãŸã‚‰è§£é™¤ã—ã¾ã™ã€‚
-3. ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ãŸ zip ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å±•é–‹ã—ã¾ã™ã€‚
-4. ä»¥ä¸‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ ã‚†ã‹ã‚Šã­ã£ã¨ ã®ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼ã«ã‚³ãƒ”ãƒ¼ã—ã¾ã™ã€‚
+# Installation
+1. [Releaseƒy[ƒW](https://github.com/tyapa0/yukarinette-aivoice/releases/) ‚©‚çÅVƒo[ƒWƒ‡ƒ“‚Ì `AivoiceControl_vX.X.zip` ‚ðƒ_ƒEƒ“ƒ[ƒh‚µ‚Ü‚·
+2. ƒ_ƒEƒ“ƒ[ƒh‚µ‚½ zip ƒtƒ@ƒCƒ‹‚ÌƒvƒƒpƒeƒB‚ðŠJ‚¢‚ÄAƒuƒƒbƒN‚³‚ê‚Ä‚¢‚½‚ç‰ðœ‚µ‚Ü‚·B
+3. ƒ_ƒEƒ“ƒ[ƒh‚µ‚½ zip ƒtƒ@ƒCƒ‹‚ð“WŠJ‚µ‚Ü‚·B
+4. ˆÈ‰º‚Ìƒtƒ@ƒCƒ‹‚ð ‚ä‚©‚è‚Ë‚Á‚Æ ‚Ì`Plugins`ƒtƒHƒ‹ƒ_[‚ÉƒRƒs[‚µ‚Ü‚·B
    - `AivoiceControl.exe`
-   - `AivoiceControlPlugin.dll`
-   â€»è§£å‡ãƒ„ãƒ¼ãƒ«ã«ã‚ˆã£ã¦ã¯ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£è¨±å¯ãŒã•ã‚Œã¦ã„ãªã„å ´åˆãŒã‚ã‚Šã¾ã™ã€‚
-   ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å³ã‚¯ãƒªãƒƒã‚¯â†’ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã§è¡¨ç¤ºã—ã€ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ã‚’è¨±å¯ã—ã¦ãã ã•ã„ã€‚
+   - `AivoiceControlPlugin.dll`  
+   ¦‰ð“€ƒc[ƒ‹‚É‚æ‚Á‚Ä‚ÍƒZƒLƒ…ƒŠƒeƒB‹–‰Â‚ª‚³‚ê‚Ä‚¢‚È‚¢ê‡‚ª‚ ‚è‚Ü‚·B  
+   ƒtƒ@ƒCƒ‹‚ð‰EƒNƒŠƒbƒN¨ƒvƒƒpƒeƒB‚Å•\Ž¦‚µAƒZƒLƒ…ƒŠƒeƒB‚ð‹–‰Â‚µ‚Ä‚­‚¾‚³‚¢B  
+   ![kyoka.jpg.](/image/kyoka.jpg "kyoka")
 
-5. ã‚†ã‹ã‚Šã­ã£ã¨ ã‚’èµ·å‹•ã—ãŸã‚‰ éŸ³å£°èªè­˜ ã®æ¬„ã«ã€ŒA.I.VOICEã€ãŒè¿½åŠ ã•ã‚Œã¦ã„ã‚‹ã®ã§ãƒã‚§ãƒƒã‚¯ã‚’å…¥ã‚Œã¾ã™ã€‚
+5. ‚ä‚©‚è‚Ë‚Á‚Æ ‚ð‹N“®‚µ‚½‚ç ‰¹º”FŽ¯ ‚Ì—“‚ÉuA.I.VOICEv‚ª’Ç‰Á‚³‚ê‚Ä‚¢‚é‚Ì‚Åƒ`ƒFƒbƒN‚ð“ü‚ê‚Ü‚·B
 
-ä»¥ä¸Š
+ˆÈã
+
+# Author
+* [‚¨‚©‚ä‚¤](http://www.okayulu.moe/)ì‚ÌVOICEROID EX/EX+§Œäƒvƒ‰ƒOƒCƒ“‚ð‰ü‘¢‚µ‚Ä‚¢‚Ü‚·B
+
+# License
+ 
+"yukarinette-aivoice" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
