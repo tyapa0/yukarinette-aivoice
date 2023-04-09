@@ -2,7 +2,7 @@
 
 namespace RemoteTranceObject  //共有オブジェクト(サーバー/クライアントで全く同一内容で定義してください)
 {
-    public class ClassFileInfo : MarshalByRefObject
+    public class ClassFileInfo
     {
         public class ClassFileInfoEventArg : EventArgs            //情報を引き渡すイベント引数クラス
         {
@@ -29,9 +29,6 @@ namespace RemoteTranceObject  //共有オブジェクト(サーバー/クライ�
 
         /// 自動的に切断されるのを回避する
         /// </summary>
-        public override object InitializeLifetimeService()
-        {
-            return null;
-        }
+
     }
 }

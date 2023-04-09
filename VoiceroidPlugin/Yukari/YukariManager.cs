@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Ipc;
-using System.Threading;
-using System.Windows.Automation;
-using RemoteTranceObject;
+using AI.Talk.Editor.Api;
 using Yukarinette.Distribution.Plugin.Core;
+using System.Threading.Tasks;
+using System.Windows;
+using System.IO;
 
 namespace Yukarinette.Distribution.Plugin
 {
@@ -15,11 +13,13 @@ namespace Yukarinette.Distribution.Plugin
     /// </summary>
     public class YukariManager : VoiceroidManager
     {
-        private ClassFileInfo m_msg = null; // IPCオブジェクト
         protected Process AivoiceControlProcess;
 
         private IntPtr mEdithWnd;
         private IntPtr mSpeakhWnd;
+
+        private TtsControl _ttsControl;     // TTS APIの呼び出し用オブジェクト
+        string  CurrentHost;
 
         /// <summary>
         /// コンストラクタ。
@@ -31,6 +31,8 @@ namespace Yukarinette.Distribution.Plugin
 
             this.ClearMember();
 
+            _ttsControl = new TtsControl();
+
             YukarinetteLogger.Instance.Debug("end.");
         }
 
@@ -39,22 +41,17 @@ namespace Yukarinette.Distribution.Plugin
         /// </summary>
         public override void Dispose(Boolean autoexit)
         {
-            ////////////////////////////////////////
-            // IPCサーバーを終了させる
-            if (null != this.AivoiceControlProcess)
+            // ホストプログラムとの接続を解除する
+            this.Disconnect();
+
+            if (autoexit)
             {
-                try
+                // ホストプログラムを終了する
+                Task.Factory.StartNew(() =>
                 {
-                    this.AivoiceControlProcess.Kill();
-                }
-                catch (Exception ex)
-                {
-                    YukarinetteLogger.Instance.Error(ex);
-                }
-                this.AivoiceControlProcess.Dispose();
-                this.AivoiceControlProcess = null;
+                    _ttsControl.TerminateHost();
+                });
             }
-            ////////////////////////////////////////
 
             base.Dispose(autoexit);
 
@@ -82,48 +79,23 @@ namespace Yukarinette.Distribution.Plugin
         /// 認識するための部品を指定する。
         /// </summary>
         /// <param name="form"></param>
-        protected override void GetComponent(AutomationElement form)
+        protected override void GetComponent()
         {
             YukarinetteLogger.Instance.Debug("start.");
 
             try
             {
-                ////////////////////////////////////////
-                //IPCサーバーのexeを起動する
-                System.Reflection.Assembly executionAsm = System.Reflection.Assembly.GetExecutingAssembly();
-                string CtrlPath = System.IO.Path.GetDirectoryName(executionAsm.Location);
-                CtrlPath += "\\AivoiceControl.exe";
-                ProcessStartInfo pInfo = new ProcessStartInfo()
-                {
-                    FileName = CtrlPath,
-                    WorkingDirectory = Path.GetDirectoryName(CtrlPath),
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                };
-                AivoiceControlProcess = Process.Start(pInfo);
-                Thread.Sleep(500);
+                // 接続可能なホストの一覧を取得する
+                string[] AvailableHosts = _ttsControl.GetAvailableHostNames();
 
-                if (m_msg == null)
+                if (AvailableHosts.Length > 0)
                 {
-                    //IPCクライアントを起動する
-                    IpcClientChannel clientChannel = new IpcClientChannel();
-                    // リモートオブジェクトを登録
-                    ChannelServices.RegisterChannel(clientChannel, true);
-                    // オブジェクトを作成
-                    m_msg = (ClassFileInfo)Activator.GetObject(typeof(ClassFileInfo), "ipc://aivoiceyatuuke/speak");
+                    // 最初に見つかるAIvoiceホストを登録する
+                    CurrentHost = AvailableHosts[0];
                 }
 
-                // OBS用のテキスト出力先を通知する
-                if (ObsOutTxt == true)
-                {
-                    m_msg.DataTrance(2, ObsOutTextPath); //IPC通信で転送する
-                }
-                else
-                {
-                    m_msg.DataTrance(2, ""); //IPC通信で転送する\
-                }
-
-                ////////////////////////////////////////
+                // APIを初期化する
+                _ttsControl.Initialize(CurrentHost);
             }
             catch (Exception ex)
             {
@@ -145,11 +117,25 @@ namespace Yukarinette.Distribution.Plugin
         {
             YukarinetteLogger.Instance.Debug("start. text=" + text);
 
+            if (_ttsControl.Status < HostStatus.Idle)
+            {
+                // ホストと接続する
+                this.Startup();
+            }
+
             try
             {
-                ////////////////////////////////////////
-                m_msg.DataTrance(1, text); //IPC通信で転送する
-                ////////////////////////////////////////
+                // OBS用のテキスト出力先を通知する
+                if (ObsOutTxt == true)
+                {
+                    ObsOutText(text);
+                }
+
+                //テキスト設定
+                _ttsControl.Text = text;
+
+                //スピーチ
+                _ttsControl.Play();
             }
             catch (Exception ex)
             {
@@ -175,6 +161,71 @@ namespace Yukarinette.Distribution.Plugin
             return true;
         }
 
+        //OBSテキストへ出力する
+        private void ObsOutText(string text)
+        {
+            try
+            {
+                if (ObsOutTextPath != "")
+                {
+                    File.WriteAllText(ObsOutTextPath, text, System.Text.Encoding.UTF8);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
+
+        #region ホストへの接続・切断
+
+        /// <summary>
+        /// ホストへの接続を開始します。
+        /// </summary>
+        private void Startup()
+        {
+            try
+            {
+                if (_ttsControl.Status == HostStatus.NotRunning)
+                {
+                    // ホストプログラムを起動する
+                    _ttsControl.StartHost();
+                }
+
+                // ホストプログラムに接続する
+                _ttsControl.Connect();
+
+                string Version = "ホストバージョン: " + _ttsControl.Version;
+
+                //TextBox.Focus();
+
+                YukarinetteLogger.Instance.Debug("ホストへの接続を開始しました。");
+            }
+            catch (Exception ex)
+            {
+                throw new YukarinetteException(this.CurrentHost + " の認識に失敗しました。" + Environment.NewLine + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// ホストへの接続を終了します。
+        /// </summary>
+        private void Disconnect()
+        {
+            try
+            {
+                // ホストプログラムとの接続を解除する
+                _ttsControl.Disconnect();
+
+                YukarinetteLogger.Instance.Debug("ホストへの接続を終了しました。");
+            }
+            catch (Exception ex)
+            {
+                throw new YukarinetteException(this.CurrentHost + " の終了に失敗しました。" + Environment.NewLine + ex.Message);
+            }
+        }
+
+        #endregion // ホストへの接続・切断
     }
 }
