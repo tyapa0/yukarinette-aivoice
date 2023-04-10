@@ -5,6 +5,7 @@ using Yukarinette.Distribution.Plugin.Core;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
+using System.Threading;
 
 namespace Yukarinette.Distribution.Plugin
 {
@@ -120,10 +121,25 @@ namespace Yukarinette.Distribution.Plugin
         {
             YukarinetteLogger.Instance.Debug("start. text=" + text);
 
-            if (_ttsControl.Status < HostStatus.Idle)
+            if (_ttsControl.Status == HostStatus.NotConnected)
             {
                 // ホストプログラムに接続する
                 _ttsControl.Connect();
+            }
+
+            // Busy中は最大5秒まで待つ
+            int tickStart = System.Environment.TickCount & int.MaxValue;
+            while (_ttsControl.Status == HostStatus.Busy)
+            {
+                if (_ttsControl.Status == HostStatus.Idle)
+                {
+                    break;
+                }
+                int tickCount = System.Environment.TickCount & int.MaxValue;
+                if (tickCount > (tickStart + 5000)) {
+                    break;
+                }
+                Thread.Sleep(1);
             }
 
             try
@@ -133,7 +149,6 @@ namespace Yukarinette.Distribution.Plugin
                 {
                     ObsOutText(text);
                 }
-
                 //テキスト設定
                 _ttsControl.Text = text;
 
