@@ -96,6 +96,9 @@ namespace Yukarinette.Distribution.Plugin
 
                 // APIを初期化する
                 _ttsControl.Initialize(CurrentHost);
+
+                // ホストと接続する
+                this.Startup();
             }
             catch (Exception ex)
             {
@@ -119,8 +122,8 @@ namespace Yukarinette.Distribution.Plugin
 
             if (_ttsControl.Status < HostStatus.Idle)
             {
-                // ホストと接続する
-                this.Startup();
+                // ホストプログラムに接続する
+                _ttsControl.Connect();
             }
 
             try
@@ -197,8 +200,6 @@ namespace Yukarinette.Distribution.Plugin
                 _ttsControl.Connect();
 
                 string Version = "ホストバージョン: " + _ttsControl.Version;
-
-                //TextBox.Focus();
 
                 YukarinetteLogger.Instance.Debug("ホストへの接続を開始しました。");
             }
