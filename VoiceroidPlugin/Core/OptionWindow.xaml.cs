@@ -74,7 +74,7 @@ namespace Yukarinette.Distribution.Plugin.Core
             YukarinetteLogger.Instance.Debug("start.");
 
             // 既に入力がある場合の初期表示ディレクトリの調整
-            String initDir = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+            String initDir = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             if (0 < this.VoiceroidPathTextBox.Text.Length)
             {
                 if (File.Exists(this.VoiceroidPathTextBox.Text))
