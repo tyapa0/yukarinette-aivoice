@@ -47,8 +47,7 @@ namespace Yukarinette.Distribution.Plugin
             get
             {
                 List<String> ret = new List<String>();
-                ret.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), @"AHS\VOICEROID+\YukariEX\VOICEROID.exe"));
-                ret.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), @"AHS\VOICEROID+\yukari\VOICEROID.exe"));
+                ret.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), @"AI\AIVoice\AIVoiceEditor\AIVoiceEditor.exe"));
                 return ret.ToArray();
             }
         }
@@ -60,7 +59,7 @@ namespace Yukarinette.Distribution.Plugin
         {
             YukarinetteLogger.Instance.Debug("start.");
 
-            this.mConfigManager = new ConfigManager("DistYukariPlugin.dll.config");
+            this.mConfigManager = new ConfigManager("AivoiceControlPlugin.dll.config");
             this.mConfigManager.Load(this.Name, this.VoiceroidPath);
 
             this.mVoiceroidManager = new YukariManager(this.Name);
